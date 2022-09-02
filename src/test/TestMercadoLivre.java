@@ -1,10 +1,11 @@
 package test;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,41 +26,22 @@ class TestMercadoLivre {
                 until((ExpectedCondition<Boolean>) objDriver ->
                     objDriver.getTitle().toLowerCase().startsWith(stringPesquisa));
 
-        System.out.println("Título da página: " + mercadoLivrePage.getDriver().getTitle());
+        System.out.println("Título da página: " + mercadoLivrePage.getTitle());
 
-        WebElement shipping = mercadoLivrePage.getDriver().findElement(By.id("shipping_highlighted_fulfillment"));
-        shipping.click();
+        mercadoLivrePage.filterByFullShipping();
 
-        List<WebElement> price = mercadoLivrePage.getDriver().findElements(By.tagName("a"));
-        for (WebElement element : price) {
-            String value = element.getAttribute("aria-label");
+        mercadoLivrePage.filterByAriaLabel("Até R$8");
 
-            if (value != null && value.equals("Até R$25")) {
-                element.click();
+        List<Map.Entry<String, BigDecimal>> products = mercadoLivrePage.getProducts();
 
-                break;
-            }
+        System.out.println("quantidade de itens encontrados na página: " + products.size());
+
+        for(Map.Entry<String, BigDecimal> product : products) {
+            System.out.println();
+            System.out.println("produto: " + product.getKey());
+            System.out.println("preço: R$" + product.getValue());
+            System.out.println();
         }
-
-        List<WebElement> results = mercadoLivrePage.getDriver().
-                                   findElements(By.className("ui-search-result__content-wrapper"));
-
-        for (WebElement result : results) {
-            String productName = result.findElement(By.className("ui-search-item__title")).getText();
-
-            String productPrice = result.findElement(By.className("price-tag-fraction")).getText();
-
-            List<WebElement> productFractionalPrice = result.findElements(By.className("price-tag-cents"));
-
-            if (!productFractionalPrice.isEmpty()) {
-                productPrice += "," + productFractionalPrice.get(0).getText();
-            }
-
-            System.out.println("produto: " + productName);
-            System.out.println("preço: " + productPrice);
-        }
-
-        System.out.println("quantidade total de itens encontrados: " + results.size());
 
         mercadoLivrePage.getDriver().quit();
     }
