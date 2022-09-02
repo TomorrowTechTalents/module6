@@ -14,4 +14,8 @@ class Page {
     WebDriver getDriver() {
         return this.driver;
     }
+
+    String getTitle() {
+        return this.driver.getTitle();
+    }
 }

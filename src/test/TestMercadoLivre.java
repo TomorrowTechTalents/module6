@@ -12,13 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 class TestMercadoLivre {
     private static final String SEARCH_STRING = "limão";
 	private void pesquisarPor(final String stringPesquisa) {
-	    Page mercadoLivrePage = new MercadoLivre();
+	    MercadoLivre mercadoLivrePage = new MercadoLivre();
 
-        mercadoLivrePage.getDriver().get("https://www.mercadolivre.com.br");
-
-        WebElement cookies = mercadoLivrePage.getDriver().
-                                              findElement(By.className("cookie-consent-banner-opt-out__action"));
-        cookies.click();
+        mercadoLivrePage.acceptCookies();
 
         WebElement campoPesquisado = mercadoLivrePage.getDriver().findElement(By.name("as_word"));
         campoPesquisado.clear();
