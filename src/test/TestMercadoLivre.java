@@ -11,8 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 class TestMercadoLivre {
     private static final String SEARCH_STRING = "feijoada";
-	private void pesquisarPor(final String stringPesquisa) {
-	    MercadoLivre mercadoLivrePage = new MercadoLivre();
+    private void pesquisarPor(final String stringPesquisa) {
+        MercadoLivre mercadoLivrePage = new MercadoLivre();
 
         mercadoLivrePage.acceptCookies();
 
@@ -62,9 +62,9 @@ class TestMercadoLivre {
         System.out.println("quantidade total de itens encontrados: " + results.size());
 
         mercadoLivrePage.getDriver().quit();
-	}
+    }
 
-	@Test
+    @Test
     void testPesquisarPorSearchString() {
         pesquisarPor(SEARCH_STRING);
     }
