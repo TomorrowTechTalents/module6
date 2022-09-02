@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 class TestMercadoLivre {
     private static final String SEARCH_STRING = "feijoada";
-    private void pesquisarPor(final String stringPesquisa) {
+    private void pesquisarPor(final String stringPesquisa) throws InterruptedException {
         MercadoLivre mercadoLivrePage = new MercadoLivre();
 
         mercadoLivrePage.acceptCookies();
@@ -29,8 +29,10 @@ class TestMercadoLivre {
         System.out.println("Título da página: " + mercadoLivrePage.getTitle());
 
         mercadoLivrePage.filterByFullShipping();
+        Thread.sleep(10_000);
 
         mercadoLivrePage.filterByAriaLabel("Até R$8");
+        Thread.sleep(10_000);
 
         List<Map.Entry<String, BigDecimal>> products = mercadoLivrePage.getProducts();
 
@@ -47,7 +49,7 @@ class TestMercadoLivre {
     }
 
     @Test
-    void testPesquisarPorSearchString() {
+    void testPesquisarPorSearchString() throws InterruptedException {
         pesquisarPor(SEARCH_STRING);
     }
 }
