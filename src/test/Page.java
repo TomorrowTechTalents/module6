@@ -3,12 +3,15 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Page {
-    public WebDriver driver;
+class Page {
+    private final WebDriver driver;
     Page() {
-        System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\Marcos Jr\\Desktop\\operadriver_win64\\operadriver.exe");
+        System.setProperty("webdriver.chrome.driver", ".\\assets\\operadriver.exe");
 
         this.driver = new ChromeDriver();
+    }
+
+    WebDriver getDriver() {
+        return this.driver;
     }
 }
