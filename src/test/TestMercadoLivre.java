@@ -10,20 +10,20 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 class TestMercadoLivre {
-    private static final String SEARCH_STRING = "limão";
+    private static final String SEARCH_STRING = "feijoada";
 	private void pesquisarPor(final String stringPesquisa) {
 	    MercadoLivre mercadoLivrePage = new MercadoLivre();
 
         mercadoLivrePage.acceptCookies();
 
-        WebElement campoPesquisado = mercadoLivrePage.getDriver().findElement(By.name("as_word"));
+        WebElement campoPesquisado = mercadoLivrePage.getSearchInput();
         campoPesquisado.clear();
         campoPesquisado.sendKeys(stringPesquisa);
         campoPesquisado.submit();
 
         new WebDriverWait(mercadoLivrePage.getDriver(), Duration.ofMillis(1000)).
                 until((ExpectedCondition<Boolean>) objDriver ->
-                    objDriver.getTitle().toLowerCase().startsWith(SEARCH_STRING));
+                    objDriver.getTitle().toLowerCase().startsWith(stringPesquisa));
 
         System.out.println("Título da página: " + mercadoLivrePage.getDriver().getTitle());
 
