@@ -1,5 +1,3 @@
-package test;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.math.BigDecimal;
@@ -59,5 +57,11 @@ class MercadoLivre extends Page {
         return products;
     }
 
+    void clickOnFirstResult() {
+        getDriver().findElement(By.className("ui-search-result-image__element")).click();
+    }
 
+    String getStatus() {
+        return getDriver().findElement(By.className("ui-pdp-subtitle")).getText();
+    }
 }

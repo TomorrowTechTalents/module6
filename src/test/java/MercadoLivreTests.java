@@ -1,5 +1,3 @@
-package test;
-
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.List;
@@ -10,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-class TestMercadoLivre {
+class MercadoLivreTests {
     private static final String SEARCH_STRING = "feijoada";
     private void pesquisarPor(final String stringPesquisa) throws InterruptedException {
         MercadoLivre mercadoLivrePage = new MercadoLivre();
@@ -37,6 +35,11 @@ class TestMercadoLivre {
         List<Map.Entry<String, BigDecimal>> products = mercadoLivrePage.getProducts();
 
         System.out.println("quantidade de itens encontrados na página: " + products.size());
+
+        mercadoLivrePage.clickOnFirstResult();
+        Thread.sleep(10_000);
+
+        System.out.println("status primeiro produto: " + mercadoLivrePage.getStatus());
 
         for(Map.Entry<String, BigDecimal> product : products) {
             System.out.println();
