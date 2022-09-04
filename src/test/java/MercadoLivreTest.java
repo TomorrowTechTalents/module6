@@ -8,8 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-class MercadoLivreTests {
+class MercadoLivreTest {
     private static final String SEARCH_STRING = "feijoada";
+    private static final String ARIA_LABEL = "Até R$8";
     private void pesquisarPor(final String stringPesquisa) throws InterruptedException {
         MercadoLivre mercadoLivrePage = new MercadoLivre();
 
@@ -29,7 +30,7 @@ class MercadoLivreTests {
         mercadoLivrePage.filterByFullShipping();
         Thread.sleep(10_000);
 
-        mercadoLivrePage.filterByAriaLabel("Até R$8");
+        mercadoLivrePage.filterByAriaLabel(ARIA_LABEL);
         Thread.sleep(10_000);
 
         List<Map.Entry<String, BigDecimal>> products = mercadoLivrePage.getProducts();
@@ -44,7 +45,7 @@ class MercadoLivreTests {
         for(Map.Entry<String, BigDecimal> product : products) {
             System.out.println();
             System.out.println("produto: " + product.getKey());
-            System.out.println("preço: R$" + product.getValue());
+            System.out.println("preço (sem desconto): R$" + product.getValue());
             System.out.println();
         }
 
@@ -52,7 +53,7 @@ class MercadoLivreTests {
     }
 
     @Test
-    void testPesquisarPorSearchString() throws InterruptedException {
+    void shouldOpenFirstResultGivenFilters() throws InterruptedException {
         pesquisarPor(SEARCH_STRING);
     }
 }
